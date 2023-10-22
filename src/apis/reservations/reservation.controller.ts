@@ -9,4 +9,16 @@ export class ReservationsController {
   getReservation(): string {
     return this.reservationsService.getReservation();
   }
+
+  createReservation(){
+    return
+  }
+
+  updateReservation(){
+    return
+  }
+
+  cancelReservation(){
+    return
+  }
 }
