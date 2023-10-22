@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
-export class conferenceRoom_res{
+export class Reservation{
     @PrimaryColumn({ comment : '회의실 예약 번호'})
-    res_id: string;
+    rsv_id: string;
 
     @Column({
         type: 'varchar',
@@ -11,21 +11,29 @@ export class conferenceRoom_res{
         nullable: false,
         comment : '예약자명'
     })
-    reserver_id: string;
+    rsvr_id: string;
 
+    @Column({
+        type: 'date',
+        nullable: false,
+        comment: '예약일자'
+    })
+    rsv_date: string;
+
+    
     @Column({
         type: 'datetime',
         nullable: false,
         comment: '예약 시작시간'
     })
-    res_start_time: string;
+    rsv_start_time: string;
 
     @Column({
         type: 'datetime',
         nullable: false,
-        comment: '예약 시작시간'
+        comment: '예약 종료시간'
     })
-    res_end_time: string;
+    rsv_end_time: string;
 
     @Column
     ({
@@ -33,6 +41,6 @@ export class conferenceRoom_res{
         nullable: false,
         comment: '회의실 예약 목적'
     })
-    res_purpose: string;
+    rsv_purpose: string;
 }
 
