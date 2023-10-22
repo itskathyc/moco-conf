@@ -1,20 +1,24 @@
 import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { ReservationsService } from './reservations.serivce';
+import { CreateReservationInfoData } from './dto/createRsv.input';
+import { FetchRsvData, RsvResData } from './interfaces/rsv.interface';
 
 @Controller('/reservations')
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
   @Get()
-  async fetchReservation() {
-    return this.reservationsService.fetchReservationService();
+  async fetchReservation(rsv_id: FetchRsvData): Promise<RsvResData> {
+    const fetchResult =  await this.reservationsService.fetchReservationService(rsv_id);
+    return fetchResult;
   }
 
   @Post()
   async createReservation(
-    @Body() createReservationInfoData
-  ){
-    return this.reservationsService.createReservationService();
+    @Body() createReservationData : CreateReservationInfoData
+  ): Promise<RsvResData>{
+    await this.reservationsService.createReservationService(createReservationData);
+    return 
   }
 
   @Put()
