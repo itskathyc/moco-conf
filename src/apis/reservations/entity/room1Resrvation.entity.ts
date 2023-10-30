@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn } from "typeorm";
 
 @Entity()
-export class conferenceRoom_res{
+export class cr01_res{ //conference_room_01_reservation
     @PrimaryColumn({ comment : '회의실 예약 번호'})
     rsv_id: string;
 
