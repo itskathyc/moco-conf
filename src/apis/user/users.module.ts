@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ReservationsResolver } from '../reservations/reservations.controller';
 import { ReservationsService } from '../reservations/reservations.serivce';
+import { UsersController } from './users.controller';
 
 @Module({
   imports: [],

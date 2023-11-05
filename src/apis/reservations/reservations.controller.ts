@@ -8,7 +8,9 @@ export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
   @Get()
-  async fetchReservation(rsv_id: FetchRsvData): Promise<RsvResData> {
+  async fetchReservation(rsv_id: FetchRsvData)
+  //: Promise<RsvResData> 
+  {
     const fetchResult =  await this.reservationsService.fetchReservationService(rsv_id);
     return fetchResult;
   }
