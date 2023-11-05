@@ -3,19 +3,21 @@ import { CreateReservationInfoData } from './dto/createRsv.input';
 import { v4 as uuidv4} from 'uuid';
 import {InjectRepository} from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { cr01_res } from './entity/room1Resrvation.entity';
-import { cr02_res } from './entity/room2Reservation.entity';
-import { assembly_rm_res } from './entity/assemblyRmReservation.entity';
+import { conference_room_01 } from './entity/room1Resrvation.entity';
+import { conference_room_02 } from './entity/room2Reservation.entity';
+import { assembly_room } from './entity/assemblyRmReservation.entity';
 
 
 @Injectable({scope: Scope.DEFAULT})
 export class ReservationsService {
 
   constructor(
-    @InjectRepository(cr01_res, cr02_res, assembly_rm_res)
-    private readonly conf_room1 : Repository<cr01_res>,
-    private readonly conf_room2 : Repository<cr02_res>,
-    private readonly asmb_room : Repository<assembly_rm_res>,
+    @InjectRepository(conference_room_01)
+    private readonly conf_room1 : Repository<conference_room_01>,
+    @InjectRepository(conference_room_02)
+    private readonly conf_room2 : Repository<conference_room_02>,
+    @InjectRepository(assembly_room)
+    private readonly asmb_room : Repository<assembly_room>,
   ){}
 
 
