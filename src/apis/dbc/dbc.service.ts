@@ -19,14 +19,15 @@ import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpsertOptions } from 'typeorm/repository/UpsertOptions';
 import { assembly_rm_res } from '../reservations/entity/assemblyRmReservation.entity';
+import { ttest } from './entity/ttest.entity';
 
 @Injectable()
 export class DbcService {
   private readonly log = new Logger(DbcService.name);
   constructor(
     private readonly dataSource: DataSource,
-    @InjectRepository(assembly_rm_res)
-    private readonly ttestRepository: Repository<assembly_rm_res>,
+    @InjectRepository(ttest)
+    private readonly ttestRepository: Repository<ttest>,
   ) {}
 
   createQueryRunner(): QueryRunner {
@@ -55,13 +56,7 @@ export class DbcService {
     entityClass: EntityTarget<Entity>,
     options: FindOneOptions<Entity>,
   ): Promise<Entity | null> {
-    //
-    // return await queryRunner.manager.findOne(entityClass, options);
-    // console.log('findOne에 쿼리 러너 죽었나요?', queryRunner.isReleased);
-    // console.log('findOne - entityClass', entityClass);
-    // console.log('findOne - options', options);
     const result = await queryRunner.manager.findOne(entityClass, options);
-    // console.log('findOne 결과', result);
     return result;
   }
 
@@ -210,18 +205,32 @@ export class DbcService {
     }
   }
 
-  async dsInsert(
-    queryRunner, //파라미터로 queryRunner를 받아옴
-  ) {
-    const queryRunner2 = this.createQueryRunner(); //파라미터와는 별개의 queryRunner 생성
-    await queryRunner2.manager.insert(ttest, { order: 10 }); //별개로 insert
-    await this.dataSource.manager.insert(ttest, { order: 100 }); //dataSource로 insert
-    await this.ttestRepository.insert({ order: 1000 }); //repository로 insert
-    await this.insert(queryRunner, ttest, { order: 10000 }); //파라미터로 받은 queryRunner로 insert
+  async getTest() {
+    const queryRunner = this.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      await this.findOne(queryRunner, ttest, {
+        where: { number: 1 },
+      });
+      await queryRunner.commitTransaction();
+    } catch {
+    } finally {
+    }
   }
 
+  // async dsInsert(
+  //   queryRunner, //파라미터로 queryRunner를 받아옴
+  // ) {
+  //   const queryRunner2 = this.createQueryRunner(); //파라미터와는 별개의 queryRunner 생성
+  //   await queryRunner2.manager.insert(ttest, { order: 10 }); //별개로 insert
+  //   await this.dataSource.manager.insert(ttest, { order: 100 }); //dataSource로 insert
+  //   await this.ttestRepository.insert({ order: 1000 }); //repository로 insert
+  //   await this.insert(queryRunner, ttest, { order: 10000 }); //파라미터로 받은 queryRunner로 insert
+  // }
+
   async connectTest() {
-    return await this.ttestRepository.find();
+    return await this.ttestRepository.find({});
   }
 
   async checkConnected(input?: string) {
