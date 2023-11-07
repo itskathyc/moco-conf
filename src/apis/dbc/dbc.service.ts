@@ -9,7 +9,6 @@ import {
   InsertResult,
   ObjectId,
   ObjectLiteral,
-  QueryResult,
   QueryRunner,
   Repository,
   SaveOptions,
@@ -26,7 +25,7 @@ export class DbcService {
   constructor(
     private readonly dataSource: DataSource,
     @InjectRepository(assembly_room)
-    private readonly ttestRepository: Repository<assembly_room>,
+    private readonly asmblyRespository: Repository<assembly_room>,
   ) {}
 
   createQueryRunner(): QueryRunner {
@@ -121,7 +120,6 @@ export class DbcService {
       | ObjectId[]
       | any,
   ): Promise<DeleteResult> {
-    //
     return await queryRunner.manager.delete(targetOrEntity, criteria);
   }
 
@@ -167,33 +165,10 @@ export class DbcService {
     );
   }
 
-//   async dsInsert(
-//     queryRunner, //파라미터로 queryRunner를 받아옴
-//   ) {
-//     const queryRunner2 = this.createQueryRunner(); //파라미터와는 별개의 queryRunner 생성
-//     await queryRunner2.manager.insert(ttest, { order: 10 }); //별개로 insert
-//     await this.dataSource.manager.insert(ttest, { order: 100 }); //dataSource로 insert
-//     await this.ttestRepository.insert({ order: 1000 }); //repository로 insert
-//     await this.insert(queryRunner, ttest, { order: 10000 }); //파라미터로 받은 queryRunner로 insert
-//   }
-
   async connectTest() {
-    return await this.ttestRepository.find();
+    return await this.asmblyRespository.find();
   }
 
-  async checkConnected(input?: string) {
-    let queryRunner: QueryRunner;
-    if (input) {
-      queryRunner = this.createQueryRunner();
-      this.cc(queryRunner);
-    } else {
-      this.cc(queryRunner);
-    }
-  }
-  cc(queryRunner) {
-    console.log('으아아아아앙');
-    console.log(queryRunner);
-  }
 
   async dropTable<Entity>(queryRunner: QueryRunner, entityClass: Entity) {
     return await queryRunner.query(`DROP TABLE IF EXISTS ${entityClass}`);
