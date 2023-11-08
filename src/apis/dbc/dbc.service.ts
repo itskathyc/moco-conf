@@ -17,15 +17,15 @@ import {
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpsertOptions } from 'typeorm/repository/UpsertOptions';
-import { assembly_room } from '../reservations/entity/assemblyRmReservation.entity';
+import { meetingRoomReservation } from '../reservations/entity/reservation.entity';
 
 @Injectable()
 export class DbcService {
   private readonly log = new Logger(DbcService.name);
   constructor(
     private readonly dataSource: DataSource,
-    @InjectRepository(assembly_room)
-    private readonly asmblyRespository: Repository<assembly_room>,
+    @InjectRepository(meetingRoomReservation)
+    private readonly mrReservation : Repository<meetingRoomReservation>
   ) {}
 
   createQueryRunner(): QueryRunner {
@@ -165,12 +165,20 @@ export class DbcService {
     );
   }
 
-  async connectTest() {
-    return await this.asmblyRespository.find();
-  }
-
 
   async dropTable<Entity>(queryRunner: QueryRunner, entityClass: Entity) {
     return await queryRunner.query(`DROP TABLE IF EXISTS ${entityClass}`);
+  }
+
+  async saveRes({reserverInfo}){
+      const queryRunner = await this.createQueryRunner();
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+      console.log("함수는 실행됨")
+    // await this.insert(
+    //   queryRunner, 
+    //   mrReservation,
+    //   reserverInfo
+    // )
   }
 }

@@ -6,12 +6,13 @@ import { DbcModule } from '../dbc/dbc.module';
 import { conference_room_01 } from './entity/room1Resrvation.entity';
 import { conference_room_02 } from './entity/room2Reservation.entity';
 import { assembly_room } from './entity/assemblyRmReservation.entity';
+import { meetingRoomReservation } from './entity/reservation.entity';
 
 @Module({
-  imports: [DbcModule, TypeOrmModule.forFeature([conference_room_01, conference_room_02, assembly_room])],
+  imports: [DbcModule, TypeOrmModule.forFeature([meetingRoomReservation])],
   controllers: [ReservationsController],
-  providers: [ReservationsService,//
-],
+  providers: [ReservationsService],
+  exports: [ReservationsService],
 })
 export class ReservationsModule {}
 
