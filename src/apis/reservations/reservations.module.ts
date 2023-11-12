@@ -12,7 +12,6 @@ import { meetingRoomReservation } from './entity/reservation.entity';
   imports: [DbcModule, TypeOrmModule.forFeature([meetingRoomReservation])],
   controllers: [ReservationsController],
   providers: [ReservationsService],
-  exports: [ReservationsService],
 })
 export class ReservationsModule {}
 

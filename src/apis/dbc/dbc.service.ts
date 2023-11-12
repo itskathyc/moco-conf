@@ -18,6 +18,7 @@ import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpsertOptions } from 'typeorm/repository/UpsertOptions';
 import { meetingRoomReservation } from '../reservations/entity/reservation.entity';
+import { ttest } from './entities/ttest.entity';
 
 @Injectable()
 export class DbcService {
@@ -25,8 +26,10 @@ export class DbcService {
   constructor(
     private readonly dataSource: DataSource,
     @InjectRepository(meetingRoomReservation)
-    private readonly mrReservation : Repository<meetingRoomReservation>
-  ) {}
+    private readonly mrReservation : Repository<meetingRoomReservation>,
+    @InjectRepository(ttest)
+    private readonly ttest: Repository<ttest>
+    ) {}
 
   createQueryRunner(): QueryRunner {
     return this.dataSource.createQueryRunner();
@@ -39,6 +42,21 @@ export class DbcService {
     options?: SaveOptions,
   ): Promise<T & Entity> {
     return await queryRunner.manager.save(targetOrEntity, entity, options);
+  }
+
+  async mixedTest(){
+    const queryRunner = this.createQueryRunner();
+    queryRunner.connect();
+    queryRunner.startTransaction();
+    try{
+        await this.insert(queryRunner, ttest, { order: '최다윤다윤'})
+        await queryRunner.commitTransaction();
+    }catch(err){
+        await queryRunner.rollbackTransaction
+        console.log(err)
+    }finally{
+        await queryRunner.release();
+    }
   }
 
   async find<Entity extends ObjectLiteral>(

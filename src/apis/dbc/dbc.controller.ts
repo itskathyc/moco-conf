@@ -1,13 +1,16 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
+import { Controller, Get, Post, } from '@nestjs/common';
 import { DbcService } from './dbc.service';
-import { InjectRepository } from '@nestjs/typeorm';
-import { meetingRoomReservation } from '../reservations/entity/reservation.entity';
 
 @Controller('dbc')
 export class DbcController {
   constructor(private readonly dbcService: DbcService,
    ) {}
     
+    @Get('/')
+    mixedTest(){
+      this.dbcService.mixedTest();
+    }
+
    @Post('/')
    fetchInfo(){
      const reserverInfo = {
