@@ -24,12 +24,12 @@ export class ReservationsController {
   }
 
   @Put()
-  async updateReservation(){
-    return this.reservationsService.updateReservationService();
+  async changeReservation(){
+    return this.reservationsService.changeReservationService();
   }
 
   @Post()
   async cancelReservation(){
-    return this.reservationsService.deleteReservaitonService();
+    return this.reservationsService.cancelReservaitonService();
   }
 }

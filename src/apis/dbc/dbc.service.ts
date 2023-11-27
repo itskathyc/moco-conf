@@ -17,16 +17,19 @@ import {
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UpsertOptions } from 'typeorm/repository/UpsertOptions';
-import { assembly_room } from '../reservations/entity/assemblyRmReservation.entity';
+import { meetingRoomReservation } from '../reservations/entity/reservation.entity';
+import { ttest } from './entities/ttest.entity';
 
 @Injectable()
 export class DbcService {
   private readonly log = new Logger(DbcService.name);
   constructor(
     private readonly dataSource: DataSource,
-    @InjectRepository(assembly_room)
-    private readonly asmblyRespository: Repository<assembly_room>,
-  ) {}
+    @InjectRepository(meetingRoomReservation)
+    private readonly mrReservation : Repository<meetingRoomReservation>,
+    @InjectRepository(ttest)
+    private readonly ttest: Repository<ttest>
+    ) {}
 
   createQueryRunner(): QueryRunner {
     return this.dataSource.createQueryRunner();
@@ -39,6 +42,21 @@ export class DbcService {
     options?: SaveOptions,
   ): Promise<T & Entity> {
     return await queryRunner.manager.save(targetOrEntity, entity, options);
+  }
+
+  async mixedTest(){
+    const queryRunner = this.createQueryRunner();
+    queryRunner.connect();
+    queryRunner.startTransaction();
+    try{
+        await this.insert(queryRunner, ttest, { order: '최다윤다윤'})
+        await queryRunner.commitTransaction();
+    }catch(err){
+        await queryRunner.rollbackTransaction
+        console.log(err)
+    }finally{
+        await queryRunner.release();
+    }
   }
 
   async find<Entity extends ObjectLiteral>(
@@ -165,12 +183,20 @@ export class DbcService {
     );
   }
 
-  async connectTest() {
-    return await this.asmblyRespository.find();
-  }
-
 
   async dropTable<Entity>(queryRunner: QueryRunner, entityClass: Entity) {
     return await queryRunner.query(`DROP TABLE IF EXISTS ${entityClass}`);
+  }
+
+  async saveRes({reserverInfo}){
+      const queryRunner = await this.createQueryRunner();
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+      console.log("함수는 실행됨")
+    // await this.insert(
+    //   queryRunner, 
+    //   mrReservation,
+    //   reserverInfo
+    // )
   }
 }

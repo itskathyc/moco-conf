@@ -2,7 +2,7 @@ import { IsNotEmpty, IsString } from "class-validator";
 
 export class CreateReservationInfoData {
     @IsString()
-    rsv_id: string;
+    rsvt_id: string;
 
     @IsNotEmpty()
     @IsString()
