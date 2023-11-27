@@ -31,11 +31,11 @@ export class ReservationsService {
     return
   }
 
-  updateReservationService(){
+  changeReservationService(){
     return
   }
 
-  deleteReservaitonService(){
+  cancelReservaitonService(){
     return
   }
 }

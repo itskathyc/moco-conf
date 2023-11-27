@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryColumn } from "typeorm";
 @Entity()
 export class meetingRoomReservation{ 
     @PrimaryColumn({ comment : '회의실 예약 번호'})
-    rsv_id: string;
+    rsvt_id: string;
 
     @Column({
         type: 'varchar',
@@ -18,7 +18,7 @@ export class meetingRoomReservation{
         nullable: false,
         comment: '회의실 분류'
     })
-    room_type: string;
+    rsvt_rm_no: string;
 
     
     @Column({
@@ -26,14 +26,14 @@ export class meetingRoomReservation{
         nullable: false,
         comment: '예약 시작시간'
     })
-    rsv_start_time: string;
+    rsvt_start_dt: string;
 
     @Column({
         type: 'datetime',
         nullable: false,
         comment: '예약 종료시간'
     })
-    rsv_end_time: string;
+    rsvt_end_dt: string;
 
     @Column
     ({
@@ -41,6 +41,22 @@ export class meetingRoomReservation{
         nullable: false,
         comment: '회의실 예약 목적'
     })
-    rsv_purpose: string;
+    rsvt_purpose: string;
+
+    @Column
+    ({
+        type: 'varchar',
+        nullable: false,
+        comment: '회의실 예약 목적'
+    })
+    bg_color: string;
+
+    @Column
+    ({
+        type: 'varchar',
+        nullable: false,
+        comment: '회의실 예약 목적'
+    })
+    other_ptcp: string;
 }
 
