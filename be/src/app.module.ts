@@ -19,19 +19,7 @@ import winston from "winston";
         ReservationsModule, UsersModule, DbcModule,TypeOrmModule.forRoot({
             type:'mariadb',host:process.env.DATABASE_HOST,port:Number(process.env.DATABASE_PORT),username:process.env.DATABASE_USERNAME,password:process.env.DATABASE_PASSWORD,database:process.env.DATABASE_DATABASE,entities:[__dirname + '/apis/**/*.entity.*'],logging:true,synchronize:true
         }),
-    AuthModule,
-    WinstonModule.forRoot({
-        transports: [
-          new winston.transports.Console({
-            //콘솔출력 지정
-            level: 'info',
-            format: winston.format.combine(
-              winston.format.timestamp(),
-              utilities.format.nestLike('mococo-aca', { prettyPrint: true }),
-            ),
-          }),
-        ],
-      }),],
+    AuthModule],
 
 })
 

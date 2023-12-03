@@ -13,10 +13,10 @@ export class user_info {
   user_email: string;
 
   @PrimaryColumn({
-    type: 'int',
+    type: 'varchar',
     comment: '비밀번호'
   })
-  user_passwd: number;
+  user_passwd: string;
 
   @Column({ type:'varchar',length: 128, comment: '회원 소속부서' })
   user_dept: string;

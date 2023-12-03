@@ -12,5 +12,5 @@ export class CreateUserInput{
     user_dept:string;
     @IsNotEmpty()
     @IsString()
-    user_papsswd:string;
+    user_passwd:string;
 }

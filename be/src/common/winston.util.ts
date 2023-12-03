@@ -5,8 +5,8 @@ import * as winstonDaily from 'winston-daily-rotate-file';
 const dailyOption = (level: string) => {
   return {
     level,
-    datePattern: 'YYYY-MM-DD-HH',
-    frequency: '1h',
+    datePattern: 'YYYY-MM-DD',
+    frequency: '1D',
     dirname: `./logs/${level}`,
     filename: `%DATE%.${level}.log`,
     format: winston.format.combine(

@@ -10,7 +10,7 @@ export class UsersController {
   getUser() {
     return this.userService.fetchUserInfoService();
   }
-  @Post()
+  @Post('/createUser')
   createUser(@Body() createUserInput:CreateUserInput){
     return this.userService.createUserService({createUserInput});
   }
