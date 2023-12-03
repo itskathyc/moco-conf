@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { DbcController } from './dbc.controller';
-import { DbcService } from './dbc.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { assembly_room } from '../reservations/entity/assemblyRmReservation.entity';
+import { meetingRoomReservation } from '../reservations/entity/reservation.entity';
+import { DbcService } from './dbc.service';
+import { ttest } from './entities/ttest.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([assembly_room])],
+  imports: [TypeOrmModule.forFeature([meetingRoomReservation, ttest])],
   controllers: [DbcController],
   providers: [DbcService],
   exports: [DbcService],
