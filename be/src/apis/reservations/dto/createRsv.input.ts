@@ -1,25 +1,32 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDate, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
-export class CreateReservationInfoData {
-    @IsString()
-    rsvt_id: string;
+export class CreateReservationInfoInput {
+@IsString()
+@IsNotEmpty()
+bg_color:string;
 
-    @IsNotEmpty()
-    @IsString()
-    rsvr_id: string;
+@IsString()
+@IsNotEmpty()
+rsvr_id:string;
 
-    @IsNotEmpty()
-    @IsString()
-    rsv_date: string;
+@IsNotEmpty()
+@IsDateString()
+rsvt_start_dt:Date;
 
-    @IsNotEmpty()
-    @IsString()
-    rsv_start_time: string;
+@IsDateString()
+@IsNotEmpty()
+rsvt_end_dt:Date;
 
-    @IsNotEmpty()
-    @IsString()
-    rsv_end_time: string;
 
-    @IsString()
-    rsv_purpose: string;
+@IsNotEmpty()
+@IsString()
+rsvt_purpose:string;
+
+@IsInt()
+@IsNotEmpty()
+rsvt_rm_no:number;
+
+@IsArray()
+@IsOptional()
+other_ptcp?:string[];
 }
