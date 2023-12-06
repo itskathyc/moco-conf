@@ -1,8 +1,8 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class meetingRoomReservation{ 
-    @PrimaryColumn({ comment : '회의실 예약 번호'})
+    @PrimaryGeneratedColumn('uuid',{ comment : '회의실 예약 번호'})
     rsvt_id: string;
 
     @Column({
@@ -14,11 +14,11 @@ export class meetingRoomReservation{
     rsvr_id: string;
 
     @Column({
-        type: 'date',
+        type: 'int',
         nullable: false,
         comment: '회의실 분류'
     })
-    rsvt_rm_no: string;
+    rsvt_rm_no: number;
 
     
     @Column({
@@ -26,14 +26,14 @@ export class meetingRoomReservation{
         nullable: false,
         comment: '예약 시작시간'
     })
-    rsvt_start_dt: string;
+    rsvt_start_dt: Date;
 
     @Column({
         type: 'datetime',
         nullable: false,
         comment: '예약 종료시간'
     })
-    rsvt_end_dt: string;
+    rsvt_end_dt: Date;
 
     @Column
     ({

@@ -1,17 +1,24 @@
+import { CreateReservationInfoInput } from "../dto/createRsv.input";
+
 export interface RsvSchema{
-    res_id: string;
-    rsvr: string;
-    rsv_date: string;
-    rsv_start_time: string;
-    srv_end_time: string;
+    rsvt_id: string;
+    rsvr_id: string;
+    rsvt_rm_no: number;
+    rsv_start_dt: Date;
+    srv_end_dt: Date;
     rsv_purpose:string;
-    rm_type: roomType;
+    bg_color:string;
+    other_ptcp:string;
 }
 
 export enum roomType{
     Assemlby,
     Room1,
     Room2
+}
+
+export interface CreateReservationReqData{
+    createReservationInput:CreateReservationInfoInput
 }
 
 export interface RsvResData{

@@ -10,7 +10,6 @@
 //   } from '@nestjs/common';
 //   import { Request, Response, NextFunction } from 'express';
 //   import { TokenService } from 'src/apis/token/token.service';
-
 //   @Injectable()
 //   export class onlyAccessMiddleware implements NestMiddleware {
 //     constructor(private readonly tokenService: TokenService) {}
@@ -31,7 +30,6 @@
 //       //const modifiedAccessToken = accessToken.replace('bearer ', '');
 //       let modifiedAccessToken = accessToken.replace('bearer ', '');
 //       modifiedAccessToken = modifiedAccessToken.replace('Bearer ', '');
-
 //       try {
 //         //토큰 검증 진행
 //         const isVerified = this.tokenService.verifyToken({
@@ -74,7 +72,6 @@
 //         //토큰 검증 결과 만기 시 이쪽으로 옵니다
 //         throw err;
 //       }
-
 //       const tokens = { accessToken };
 //       req.body.tokens = tokens;
 //       req.res.locals.tokens = tokens;
