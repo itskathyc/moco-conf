@@ -36,7 +36,7 @@ export class meetingRoomReservation {
 
   @Column({
     type: 'varchar',
-    nullable: false,
+    nullable: true,
     comment: '회의실 예약 목적',
   })
   rsvt_purpose: string;
@@ -53,5 +53,5 @@ export class meetingRoomReservation {
     nullable: false,
     comment: '회의실 예약 목적',
   })
-  other_ptcp: string;
+  other_ptcp?: string | string[];
 }

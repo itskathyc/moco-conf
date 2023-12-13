@@ -8,28 +8,30 @@ export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
   @Get()
-  async fetchReservation(rsv_id: FetchRsvData)
-  //: Promise<RsvResData> 
+  async fetchReservation(rsv_id: FetchRsvData) //: Promise<RsvResData>
   {
-    const fetchResult =  await this.reservationsService.fetchReservationService(rsv_id);
+    const fetchResult =
+      await this.reservationsService.fetchReservationService(rsv_id);
     return fetchResult;
   }
 
   @Post()
   async createReservation(
-    @Body() createReservationInput : CreateReservationInfoInput
-  ): Promise<RsvResData>{
-    await this.reservationsService.createReservationService({createReservationInput});
-    return 
+    @Body() createReservationInput: CreateReservationInfoInput,
+  ): Promise<RsvResData> {
+    await this.reservationsService.createReservationService({
+      createReservationInput,
+    });
+    return;
   }
 
   @Put()
-  async changeReservation(){
+  async changeReservation() {
     return this.reservationsService.changeReservationService();
   }
 
   @Post()
-  async cancelReservation(){
+  async cancelReservation() {
     return this.reservationsService.cancelReservaitonService();
   }
 }

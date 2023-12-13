@@ -28,7 +28,7 @@ import winston from 'winston';
       database: process.env.DATABASE_DATABASE,
       entities: [__dirname + '/apis/**/*.entity.*'],
       logging: true,
-      synchronize: true,
+      //   synchronize: true,
     }),
     AuthModule,
   ],
